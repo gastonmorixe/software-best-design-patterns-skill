@@ -71,21 +71,26 @@ This repo follows the [Agent Skills][skills] spec (`SKILL.md` + `patterns/` + `r
 
 #### Install for [Claude Code][cc]
 
+> **Note.** The repo is `software-best-design-patterns-skill`, but the *skill name* (`SKILL.md` frontmatter) is `software-best-design-patterns`. Clone the repo, but always check the directory out **without** the `-skill` suffix so the skill loader picks the right name.
+
 ```sh
-git clone https://github.com/gastonmorixe/software-best-design-patterns.git ~/.claude/skills/software-best-design-patterns
+git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
+  ~/.claude/skills/software-best-design-patterns
 ```
 
 #### Install for [minimal-agent][ma] / general "Agents" skill loader
 
 ```sh
-git clone https://github.com/gastonmorixe/software-best-design-patterns.git ~/.agents/skills/software-best-design-patterns
+git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
+  ~/.agents/skills/software-best-design-patterns
 ```
 
 Or, if you want the skill kept in a separate working tree:
 
 ```sh
-git clone https://github.com/gastonmorixe/software-best-design-patterns.git ~/Projects/software-best-design-patterns
-ln -s ~/Projects/software-best-design-patterns ~/.agents/skills/software-best-design-patterns
+git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
+  ~/Projects/software-best-design-patterns-skill
+ln -s ~/Projects/software-best-design-patterns-skill ~/.agents/skills/software-best-design-patterns
 ```
 
 The skill is discovered automatically on the next session.

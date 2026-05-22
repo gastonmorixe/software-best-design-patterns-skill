@@ -1,8 +1,8 @@
 # Modern TypeScript (2026 Edition)
 
-How to express classic design patterns idiomatically in TypeScript 5.x. Covers `satisfies`, `const` type parameters, `NoInfer`, `using`, decorators, template literal types, branded types, and what changed between the 2014 "TypeScript-for-Java-devs" style and the 2026 mainstream.
+How to express classic design patterns idiomatically in TypeScript 6.x. Covers `satisfies`, `const` type parameters, `NoInfer`, `using`, decorators, template literal types, branded types, and what changed between the 2014 "TypeScript-for-Java-devs" style and the 2026 mainstream.
 
-> Reference baseline: TypeScript 5.9 (Aug 2025), Node 22+, native ESM, `"strict": true`.
+> Reference baseline: TypeScript 6.0.3 (Apr 2026), Node 22+, native ESM, `"strict": true`.
 
 ## Table of Contents
 

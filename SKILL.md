@@ -1,11 +1,11 @@
 ---
 name: software-best-design-patterns
-description: 2026-edition design-patterns reference for modern TypeScript. Covers all 23 Gang-of-Four patterns, PoEAA enterprise patterns (Repository, Unit of Work, Service Layer, DTO, Identity Map, Lazy Load), modern TS idioms (Result, Discriminated Union State, Branded Types, Type-State, Dependency Injection, Hooks, Signals, Reducer, Middleware), resilience (Circuit Breaker, Retry+Backoff, Saga, Outbox, Idempotency), plus references on SOLID, anti-patterns, TypeScript 5.x features, functional patterns, architectural styles (Hexagonal, Clean, CQRS, Event Sourcing, DDD tactical), and testing. Use when designing architecture, refactoring code, choosing a pattern, or when code exhibits symptoms like growing switch statements, deep inheritance, tight coupling, hard-to-test components, dual-write inconsistencies, throwing for expected errors, stringly-typed IDs, unbounded retry loops, or boolean state flags. Also for reviewing TypeScript code or picking architectural styles.
+description: 2026-edition design-patterns reference for modern TypeScript. Covers all 23 Gang-of-Four patterns, PoEAA enterprise patterns (Repository, Unit of Work, Service Layer, DTO, Identity Map, Lazy Load), modern TS idioms (Result, Discriminated Union State, Branded Types, Type-State, Dependency Injection, Hooks, Signals, Reducer, Middleware), resilience (Circuit Breaker, Retry+Backoff, Saga, Outbox, Idempotency), plus references on SOLID, anti-patterns, TypeScript 6.x features, functional patterns, architectural styles (Hexagonal, Clean, CQRS, Event Sourcing, DDD tactical), and testing. Use when designing architecture, refactoring code, choosing a pattern, or when code exhibits symptoms like growing switch statements, deep inheritance, tight coupling, hard-to-test components, dual-write inconsistencies, throwing for expected errors, stringly-typed IDs, unbounded retry loops, or boolean state flags. Also for reviewing TypeScript code or picking architectural styles.
 ---
 
 # Software Best Design Patterns
 
-A 2026-edition update of the Gang-of-Four catalog, written for modern TypeScript (5.x, strict mode, native ESM). Covers all 23 classical patterns, the enterprise patterns from *Patterns of Enterprise Application Architecture*, the modern functional/reactive patterns that have become idiomatic (Result, Discriminated Union State, Branded Types, DI, Hooks, Signals, Reducer, Middleware, Type-State), and the resilience patterns that distributed systems require (Circuit Breaker, Retry, Saga, Outbox, Idempotency).
+A 2026-edition update of the Gang-of-Four catalog, written for modern TypeScript (6.x, strict mode, native ESM). Covers all 23 classical patterns, the enterprise patterns from *Patterns of Enterprise Application Architecture*, the modern functional/reactive patterns that have become idiomatic (Result, Discriminated Union State, Branded Types, DI, Hooks, Signals, Reducer, Middleware, Type-State), and the resilience patterns that distributed systems require (Circuit Breaker, Retry, Saga, Outbox, Idempotency).
 
 **Core philosophy.** Patterns are templates you adapt to your context, not blueprints to copy. They earn their weight when they genuinely simplify your design. Reaching for one to "look senior" is the most reliable way to make code worse.
 
@@ -244,7 +244,7 @@ Cross-cutting documents that several patterns share. Don't read them up-front; c
 | --- | --- |
 | [references/principles.md](references/principles.md) | When a pattern doesn't fit and you need to reason from first principles — SOLID, composition, coupling, cohesion, YAGNI/KISS/DRY |
 | [references/anti-patterns.md](references/anti-patterns.md) | When you spot a smell (God Object, Singleton abuse, Dual Write, Stringly-typed API, etc.) and need the matching remedy |
-| [references/modern-typescript.md](references/modern-typescript.md) | When applying TS 5.x features to a pattern — `satisfies`, `const` type parameters, `NoInfer`, `using`, decorators, branded types, iterator helpers, set methods |
+| [references/modern-typescript.md](references/modern-typescript.md) | When applying TS 6.x features to a pattern — `satisfies`, `const` type parameters, `NoInfer`, `using`, decorators, branded types, iterator helpers, set methods |
 | [references/functional-patterns.md](references/functional-patterns.md) | When working with `Result`, ADTs, pipelines, immutability, lenses, or Railway-Oriented Programming |
 | [references/architectural-styles.md](references/architectural-styles.md) | When choosing between layered, hexagonal, clean, modular monolith, microservices, CQRS, event sourcing, DDD tactical |
 | [references/testing-patterns.md](references/testing-patterns.md) | When deciding on test doubles, fixtures, property-based tests, contract tests, or wiring Vitest / Playwright / MSW |
@@ -329,7 +329,7 @@ Before merging code that introduces a pattern:
 
 This skill assumes:
 
-- TypeScript **5.x** (5.9+ idioms; some examples use TC39 proposals where stable in Node 22+).
+- TypeScript **6.x** (6.0+ idioms; some examples use TC39 proposals where stable in Node 22+).
 - `"strict": true` in `tsconfig.json`, with `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`.
 - Native ESM (`"type": "module"`).
 - Node 22+, Bun, Deno, or a modern browser runtime.

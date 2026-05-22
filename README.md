@@ -1,6 +1,6 @@
 # Software Best Design Patterns
 
-2026-edition design-patterns reference for modern TypeScript (5.x, strict mode, native ESM).
+2026-edition design-patterns reference for modern TypeScript (6.x, strict mode, native ESM).
 
 This skill covers:
 - All 23 GoF patterns

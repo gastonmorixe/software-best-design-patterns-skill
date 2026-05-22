@@ -175,7 +175,7 @@ For large apps with many services, manual wiring at the root becomes tedious. A 
 | **NestJS DI** | Decorator, module system | Comes with NestJS; superb for that ecosystem |
 | **typedi** | Decorator | Simple but archived |
 
-Example with **awilix** (no decorators, plays well with TS 5.x):
+Example with **awilix** (no decorators, plays well with TS 6.x):
 
 ```typescript
 import { createContainer, asClass, asValue, InjectionMode } from "awilix";

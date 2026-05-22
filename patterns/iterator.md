@@ -59,16 +59,18 @@ The internal storage (`Array` vs `Set` vs `Tree`) is now an implementation detai
 ## Structure
 
 ```
-   ┌──────────────┐      iterator()      ┌──────────────────┐
-   │  Iterable    │ ──────────────────▶  │   Iterator       │
-   │              │                      │  + next() → IR   │
-   │ + [Symbol    │                      │  + return?       │
-   │   .iterator] │                      │  + throw?        │
-   └──────────────┘                      └──────────────────┘
-                                                  │
-                                                  │ returns
-                                                  ▼
-                                       { value: T; done: boolean }
+┌────────────────────┐                          ┌──────────────────────┐
+│ Iterable           │      iterator()          │ Iterator             │
+│                    │─────────────────────────▶│                      │
+│ + [Symbol          │                          │ + next() → IR        │
+│     .iterator]()   │                          │ + return?  + throw?  │
+└────────────────────┘                          └──────────────────────┘
+                                                            │
+                                                            │ returns
+                                                            │
+                                                            ▼
+
+                                           { value: T; done: boolean }
 ```
 
 ## Modern TypeScript Twist

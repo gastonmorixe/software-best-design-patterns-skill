@@ -138,11 +138,13 @@ The caretaker (`History`) never touches the memento internals. Adding a field to
 ## Structure
 
 ```
-   ┌──────────────┐  save() ─▶  ┌──────────────┐         ┌──────────────┐
-   │  Originator  │             │   Memento    │ ◀ holds │  Caretaker   │
-   │              │  restore(m) │  (opaque)    │         │              │
-   │ - state      │ ◀───────────│ - state'     │         │ - mementos[] │
-   └──────────────┘             └──────────────┘         └──────────────┘
+┌──────────────────┐             ┌────────────────────┐          ┌─────────────┐
+│ Originator       │ save()      │ Memento            │          │ Caretaker   │
+│                  │ ──────────▶ │ (opaque)           │   holds  │             │
+│                  │             │                    │ ◀────────│             │
+│ - state          │ ◀────────── │ - state'           │          │ - stack[]   │
+│                  │  restore(m) │                    │          │             │
+└──────────────────┘             └────────────────────┘          └─────────────┘
 ```
 
 ## Modern TypeScript Twist

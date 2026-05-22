@@ -94,18 +94,23 @@ for (const g of page) g.style.render(gfx, g.x, g.y);
 ## Structure
 
 ```
-                                   ┌─────────────────────────┐
-   ┌──────────────────────────┐    │ FlyweightFactory        │
-   │ Client                   │───▶│ - cache: Map<key, Fly>  │
-   │ + extrinsicState[]       │    │ + get(key): Flyweight   │
-   └────────────┬─────────────┘    └─────────────┬───────────┘
-                │                                │
-                │ uses (with extrinsic state)    │ creates/shares
-                ▼                                ▼
-       ┌───────────────────┐           ┌─────────────────────┐
-       │  Flyweight        │           │ ConcreteFlyweight   │
-       │  + op(extrinsic)  │           │ - intrinsicState    │
-       └───────────────────┘           └─────────────────────┘
+┌──────────────────────────┐                ┌──────────────────────────────────┐
+│ Client                   │   get(key)     │ FlyweightFactory                 │
+│                          │───────────────▶│                                  │
+│ + extrinsicState[]       │                │ - cache: Map<key, Flyweight>     │
+└──────────────────────────┘                │ + get(key): Flyweight            │
+              │                             └──────────────────────────────────┘
+              │                                               │
+uses (with    │                                               │ creates /
+extrinsic state)                                              │ shares
+              │                                               │
+              │                                               │
+              ▼                                               ▼
+┌──────────────────────────┐                ┌──────────────────────────────────┐
+│ Flyweight                │                │ ConcreteFlyweight                │
+│                          │                │                                  │
+│ + op(extrinsic)          │                │ - intrinsicState (immutable)     │
+└──────────────────────────┘                └──────────────────────────────────┘
 ```
 
 ## Modern TypeScript Twist

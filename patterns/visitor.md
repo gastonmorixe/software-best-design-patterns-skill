@@ -115,18 +115,21 @@ To add `Optimizer` or `TypeChecker`, write a new class. No node touches.
 ## Structure
 
 ```
-                                          ┌───────────────┐
-   ┌───────────────────┐  accept(v)        │  Visitor<R>   │
-   │     Element       │──────────────────▶│ + visit_A(A)  │
-   │  + accept(v: V)   │                   │ + visit_B(B)  │
-   └────────┬──────────┘                   │ + visit_C(C)  │
-            △                              └───────┬───────┘
-   ┌────────┴───────┐                              △
-   │  ElementA      │  v.visitA(this)              │
-   │  ElementB      │ ────────────────▶  ┌─────────┴────────┐
-   │  ElementC      │                    │ Concrete Visitors │
-   └────────────────┘                    │ Eval, Print, …    │
-                                         └───────────────────┘
+┌────────────────────────┐                           ┌───────────────────────────┐
+│ Element                │    accept(v)              │ Visitor<R>                │
+│                        │──────────────────────────▶│                           │
+│ + accept(v)            │                           │ + visitA(a: ElementA): R  │
+└────────────────────────┘                           │ + visitB(b: ElementB): R  │
+             △                                       │ + visitC(c: ElementC): R  │
+             │                                       └───────────────────────────┘
+┌────────────┴───────────┐                                         △
+│ ElementA               │  v.visitA(this)                         │
+│ ElementB               │  ───────────────────────▶ ┌─────────────┴─────────────┐
+│ ElementC               │                           │ Concrete Visitors         │
+└────────────────────────┘                           │                           │
+                                                     │ Eval, Print,              │
+                                                     │ TypeCheck, …              │
+                                                     └───────────────────────────┘
 ```
 
 ## Modern TypeScript Twist

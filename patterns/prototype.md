@@ -94,16 +94,18 @@ for (let i = 0; i < 200; i++) {
 ## Structure
 
 ```
-        ┌────────────────────────┐
-        │  Cloneable<T>          │
-        │  + clone(): T          │
-        └───────────┬────────────┘
-                    △
-        ┌───────────┴───────────┐
-        │       Prototype        │
-        │  -fields…              │
-        │  + clone(): Prototype  │  ─── returns a copy of `this`
-        └────────────────────────┘
+        ┌──────────────────────────────┐
+        │ Cloneable<T>  (interface)    │
+        │                              │
+        │ + clone(): T                 │
+        └──────────────────────────────┘
+                       △
+                       │
+        ┌──────────────┴───────────────┐
+        │ Prototype                    │
+        │ - fields…                    │ ── returns a copy
+        │ + clone(): Prototype         │    of `this`
+        └──────────────────────────────┘
 ```
 
 ## Modern TypeScript Twist

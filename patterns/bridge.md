@@ -107,16 +107,20 @@ await marketingSms.send("+1…", { subject: "Sale", body: "50% off" });
 ## Structure
 
 ```
-   ┌───────────────────────┐       ┌──────────────────────┐
-   │     Abstraction       │◇─────▶│  Implementor (impl)  │
-   │  (e.g. Notification)  │  has-a │  (MessageChannel)   │
-   │  + send(…)            │       │  + send(…)           │
-   └──────────┬────────────┘       └──────────┬───────────┘
-              △                               △
-   ┌──────────┴──────────┐         ┌──────────┴──────────┐
-   │ RefinedAbstraction1 │         │ ConcreteImplA       │
-   │ RefinedAbstraction2 │         │ ConcreteImplB       │
-   └─────────────────────┘         └─────────────────────┘
+┌────────────────────────────┐                ┌────────────────────────────┐
+│ Abstraction                │    has-a       │ Implementor                │
+│ (Notification)             │◇──────────────▶│ (MessageChannel)           │
+│                            │                │                            │
+│ + send(…)                  │                │ + send(…)                  │
+└────────────────────────────┘                └────────────────────────────┘
+              △                                             △
+              │                                             │
+┌─────────────┴──────────────┐                ┌─────────────┴──────────────┐
+│ UrgentNotification         │                │ EmailChannel               │
+│ MarketingNotification      │                │ SmsChannel                 │
+│ ReminderNotification       │                │ SlackChannel               │
+│                            │                │                            │
+└────────────────────────────┘                └────────────────────────────┘
 ```
 
 The diamond (◇) is composition; the triangles (△) are inheritance.

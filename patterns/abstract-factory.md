@@ -91,24 +91,28 @@ const repo = new UserRepository(db);
 ## Structure
 
 ```
-        ┌───────────────────────────┐
-        │      DbFactory            │  ◀── client depends on this
-        │  + driver()  : Driver     │
-        │  + queryBuilder() : QB    │
-        │  + migrator(): Migrator   │
-        └────────────┬──────────────┘
-                     △
-        ┌────────────┴────────────┐
-        │                         │
-┌───────┴────────┐       ┌────────┴────────┐
-│ PostgresFactory │       │ MySqlFactory    │
-└───────┬─────────┘       └─────────┬───────┘
-        │ creates                   │ creates
-   ┌────┴──────┐               ┌────┴──────┐
-   │ Pg driver │               │ My driver │
-   │ Pg QB     │               │ My QB     │
-   │ Pg migr.  │               │ My migr.  │
-   └───────────┘               └───────────┘
+                      ┌────────────────────────────────────┐
+                      │ DbFactory  (interface)             │
+                      │ + driver()       : Driver          │
+                      │ + queryBuilder() : QueryBuilder    │
+                      │ + migrator()     : Migrator        │
+                      └────────────────────────────────────┘
+                                         △
+                                         │
+            ┌────────────────────────────┴───────────────────────────┐
+            │                                                        │
+┌───────────┴───────────┐                                ┌───────────┴───────────┐
+│ PostgresFactory       │                                │ MySqlFactory          │
+│                       │                                │                       │
+└───────────────────────┘                                └───────────────────────┘
+            │                                                        │
+            │ creates                                      creates   │
+            ▼                                                        ▼
+┌───────────────────────┐                                ┌───────────────────────┐
+│ Pg driver             │                                │ My driver             │
+│ Pg query builder      │                                │ My query builder      │
+│ Pg migrator           │                                │ My migrator           │
+└───────────────────────┘                                └───────────────────────┘
 ```
 
 ## Modern TypeScript Twist

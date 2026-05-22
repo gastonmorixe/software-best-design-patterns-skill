@@ -25,15 +25,19 @@ This reference covers the styles you'll see in 2026 TypeScript codebases. None o
 The classical structure. Layers depend downward.
 
 ```
-┌────────────────────────┐
-│  Presentation (HTTP)   │
-├────────────────────────┤
-│  Application / Service │
-├────────────────────────┤
-│  Domain                │
-├────────────────────────┤
-│  Persistence (DB)      │
-└────────────────────────┘
+┌────────────────────────────────┐
+│ Presentation (HTTP)            │
+│                                │
+├────────────────────────────────┤
+│ Application / Service          │
+│                                │
+├────────────────────────────────┤
+│ Domain                         │
+│                                │
+├────────────────────────────────┤
+│ Persistence (DB)               │
+│                                │
+└────────────────────────────────┘
 ```
 
 ```
@@ -56,23 +60,22 @@ When you outgrow layered architecture, the next step is usually Hexagonal.
 Alistair Cockburn, 2005. The domain is at the centre; everything else is an adapter behind a port (interface).
 
 ```
-                  ┌────────────────────────┐
-        HTTP ────▶│ Inbound adapters       │
-        CLI  ────▶│ (controllers)          │
-        gRPC ────▶│                        │
-                  └───────────┬────────────┘
-                              │ ports (interfaces)
-                              ▼
-                  ┌────────────────────────┐
-                  │   Application core     │
-                  │   (use cases + domain) │
-                  └───────────┬────────────┘
-                              │ ports
-                              ▼
-                  ┌────────────────────────┐
-                  │ Outbound adapters      │
-                  │ (DB, broker, mailer)   │
-                  └────────────────────────┘
+             ┌──────────────────────────┐         ┌────────────────────────┐
+ HTTP ─────▶ │ Inbound adapters         │         │ Application Core       │
+             │                          │ ports   │                        │
+ CLI  ─────▶ │ (HTTP controllers,       │────────▶│ Use cases              │
+             │  CLI commands, RPC)      │         │ Domain model           │
+ gRPC ─────▶ │                          │         │                        │
+             └──────────────────────────┘         └────────────────────────┘
+                                                               │
+                                                               │ ports
+                                                               │
+                                                               ▼
+                                                  ┌────────────────────────┐
+                                                  │ Outbound adapters      │
+                                                  │                        │
+                                                  │ DB, broker, mailer     │
+                                                  └────────────────────────┘
 ```
 
 ```
@@ -141,18 +144,20 @@ This is the default I recommend for any non-trivial backend service.
 Uncle Bob (Robert C. Martin), 2012. A specific layering of Hexagonal:
 
 ```
-        ┌──────────────────────────────────┐
-        │   Frameworks & Drivers           │   (web, DB, devices)
-        │   ┌────────────────────────────┐ │
-        │   │  Interface Adapters        │ │   (controllers, presenters, gateways)
-        │   │   ┌──────────────────────┐ │ │
-        │   │   │  Application Business│ │ │   (use cases)
-        │   │   │   ┌────────────────┐ │ │ │
-        │   │   │   │   Entities     │ │ │ │   (enterprise business rules)
-        │   │   │   └────────────────┘ │ │ │
-        │   │   └──────────────────────┘ │ │
-        │   └────────────────────────────┘ │
-        └──────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────┐
+│ Frameworks & Drivers  (web, DB, devices)                           │
+│   ┌────────────────────────────────────────────────────────────┐   │
+│   │ Interface Adapters  (controllers, presenters, gateways)    │   │
+│   │   ┌────────────────────────────────────────────────────┐   │   │
+│   │   │ Application Business Rules  (use cases)            │   │   │
+│   │   │   ┌────────────────────────────────────────────┐   │   │   │
+│   │   │   │ Entities                                   │   │   │   │
+│   │   │   │ (enterprise business rules)                │   │   │   │
+│   │   │   └────────────────────────────────────────────┘   │   │   │
+│   │   └────────────────────────────────────────────────────┘   │   │
+│   └────────────────────────────────────────────────────────────┘   │
+│                                                                    │
+└────────────────────────────────────────────────────────────────────┘
 ```
 
 The rule: source-code dependencies point only **inward**. Use Cases call Entities; Adapters call Use Cases; Frameworks call Adapters. Nothing on the inside knows anything on the outside.
@@ -242,13 +247,17 @@ This is the default for teams who've been bitten by premature microservices.
 Each service is its own deployable, its own database, its own team. Communication via HTTP/gRPC + async messages.
 
 ```
-[Orders]   [Payments]   [Inventory]   [Notifications]
-   │           │            │              │
-   └───────────┴────────────┴──────────────┘
-                       │
-                  ┌────┴────┐
-                  │  Bus     │
-                  └─────────┘
+┌───────────┐   ┌───────────┐       ┌───────────┐   ┌──────────┐
+│ Orders    │   │ Payments  │       │ Inventory │   │ Notifs   │
+└───────────┘   └───────────┘       └───────────┘   └──────────┘
+      │               │                   │               │
+      │               │                   │               │
+      │               │                   │               │
+      │               │                   │               │
+      │               │                   │               │
+┌─────┬───────────────┬───────────────────┬───────────────┬────┐
+│                            Event Bus                         │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 **When microservices help:**
@@ -281,19 +290,21 @@ Command Query Responsibility Segregation, Greg Young, 2010.
 Separate the **write model** (commands, optimised for transactional consistency) from the **read model** (queries, optimised for retrieval and display).
 
 ```
-            ┌──────────────────┐
-   write ───▶│ Command Handler  │──▶  Write DB
-            └─────────┬────────┘
-                      │ events
-                      ▼
-            ┌──────────────────┐
-            │ Projector(s)     │──▶  Read DB(s)
-            └──────────────────┘
-                      ▲
-                      │
-   read  ───▶ ┌───────┴────────┐
-              │ Query Handler  │
-              └────────────────┘
+              ┌────────────────────┐        ┌──────────────────┐
+write ───────▶│ Command Handler    │───────▶│ Write DB         │
+              └────────────────────┘        └──────────────────┘
+                         │
+                         │ events
+                         │
+                         ▼
+              ┌────────────────────┐        ┌──────────────────┐
+              │ Projector(s)       │───────▶│ Read DB(s)       │
+              └────────────────────┘        └──────────────────┘
+                                                      │
+                                                      │
+              ┌────────────────────┐                  │
+read  ───────▶│ Query Handler      │───────▶
+              └────────────────────┘
 ```
 
 Two models, two databases (or two schemas), two code paths. The read side can be heavily denormalised; multiple projections for different views (table, search index, cache).

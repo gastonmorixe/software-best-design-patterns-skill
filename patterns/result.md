@@ -174,7 +174,7 @@ async function transfer(from: string, to: string, amount: number): Promise<Resul
 }
 ```
 
-(Requires TS 5.2+ + a runtime that implements `Symbol.asyncDispose`, which is Node 22+ / Bun / Deno.)
+(Requires a runtime that implements `Symbol.asyncDispose` — Node 22+, Bun, Deno. Standard in TypeScript 6.)
 
 ### Type-level guarantees
 
@@ -207,7 +207,7 @@ For most projects, **neverthrow** hits the right balance of ergonomics and weigh
 
 | | Result | Exceptions |
 | --- | --- | --- |
-| Visibility in signature | Yes | No (except in Java; not TS) |
+| Visibility in signature | Yes | No — TS signatures don't carry thrown types |
 | Type-checked handling | Yes | No |
 | Performance | Allocation only | Stack capture (expensive) |
 | Stack traces | Lost (must capture explicitly) | Built-in |

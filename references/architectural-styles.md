@@ -393,7 +393,7 @@ function rehydrate(events: OrderEvent[]): OrderState {
 - Team is small and new to the model.
 - The domain is simple.
 
-Tools: **EventStoreDB**, **Marten** (Postgres-based, .NET), **Axon** (Java), **Akka Persistence**, or roll-your-own on Postgres for small systems.
+Tools in the TypeScript / Node ecosystem: **EventStoreDB** (with the official Node client), **MartenDB**'s Postgres-based event store via raw SQL, **eventually-typescript**, **node-eventstore**, or roll-your-own on Postgres for small systems. The pattern itself is language-agnostic — adopt the cleanest implementation that fits your runtime.
 
 ---
 

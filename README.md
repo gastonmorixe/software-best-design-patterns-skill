@@ -1,13 +1,12 @@
 # software-best-design-patterns
 
-A **2026-edition design-patterns catalog for TypeScript 6** — packaged as an [Agent Skill][skills] you can drop into Claude Code, Codex, [minimal-agent][ma], or any tool that follows the Agent Skills spec, and equally usable as a human-readable reference.
+A **2026-edition design-patterns catalog for TypeScript 6** — packaged as an [Agent Skill][skills] you can drop into Claude Code, Codex, or any tool that follows the Agent Skills spec, and equally usable as a human-readable reference.
 
 It is a deliberate update of *Design Patterns: Elements of Reusable Object-Oriented Software* (Gamma, Helm, Johnson, Vlissides — 1994) and *Patterns of Enterprise Application Architecture* (Fowler — 2002) for the way TypeScript is actually written today: strict by default, discriminated unions over inheritance, `Result` types over thrown errors, signals over coarse observers, hexagonal over layered, and so on.
 
 > **Why?** The original GoF book is still the shared vocabulary of software design, but its Smalltalk-and-C++-era examples no longer match how TS teams build systems in 2026. This skill keeps every classical pattern's *intent*, modernises every example to TypeScript 6, and adds the patterns the original book couldn't have known about (Result, Hooks, Signals, Reducer, Outbox, Saga, Idempotency, Circuit Breaker, Type-State, …).
 
-[skills]: https://github.com/anthropics/skills
-[ma]: https://github.com/h4ckf0r0day/minimal-agent
+[skills]: https://agentskills.io
 
 ## At a glance
 
@@ -78,21 +77,6 @@ git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.gi
   ~/.claude/skills/software-best-design-patterns
 ```
 
-#### Install for [minimal-agent][ma] / general "Agents" skill loader
-
-```sh
-git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
-  ~/.agents/skills/software-best-design-patterns
-```
-
-Or, if you want the skill kept in a separate working tree:
-
-```sh
-git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
-  ~/Projects/software-best-design-patterns-skill
-ln -s ~/Projects/software-best-design-patterns-skill ~/.agents/skills/software-best-design-patterns
-```
-
 The skill is discovered automatically on the next session.
 
 [cc]: https://github.com/anthropics/claude-code
@@ -100,6 +84,23 @@ The skill is discovered automatically on the next session.
 #### Install for Codex / OpenAI Codex CLI
 
 Place the directory under whatever path your Codex setup scans for skills (typically `~/.codex/skills/` or a project-local `.codex/skills/`). The `SKILL.md` follows the standard spec, so any conforming loader will pick it up.
+
+#### Install for any other Agent-Skills-compliant loader
+
+The skill follows the [Agent Skills spec][skills]: a `SKILL.md` with frontmatter (`name`, `description`) and an optional body of instructions, plus sibling `patterns/`, `references/`, and `scripts/` directories. Drop the cloned directory wherever your agent scans for skills (commonly `~/.agents/skills/`, `.agents/skills/`, or a project-local override) and keep the directory name as `software-best-design-patterns` so the loader picks up the correct skill identity.
+
+```sh
+git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
+  <your-skills-dir>/software-best-design-patterns
+```
+
+Or, if you want the skill kept in a separate working tree and symlinked in:
+
+```sh
+git clone https://github.com/gastonmorixe/software-best-design-patterns-skill.git \
+  ~/Projects/software-best-design-patterns-skill
+ln -s ~/Projects/software-best-design-patterns-skill <your-skills-dir>/software-best-design-patterns
+```
 
 #### Use as a single Markdown reference
 
